@@ -1,1 +1,16 @@
 # fcc-pinterest
+
+---
+
+###### .env file:
+```
+PORT=80
+NODE_ENV=development
+
+MONGODB_URI=
+SESSION_SECRET=
+
+TWITTER_CONSUMER_KEY=
+TWITTER_CONSUMER_SECRET=
+TWITTER_CALLBACK=
+```
