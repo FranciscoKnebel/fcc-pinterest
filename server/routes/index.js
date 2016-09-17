@@ -7,9 +7,19 @@ module.exports = function (app, passport, dirname) {
 
 	app.get('/', function (req, res) {
 		if (req.isAuthenticated()) {
-			res.render('index.authenticated.ejs', {user: req.user})
+			Link.findRandom().limit(15).exec(function (err, links) {
+				res.render('index.authenticated.ejs', {
+					user: req.user,
+					links: links
+				})
+			});
 		} else {
-			res.render('index.ejs', {user: req.user});
+			Link.findRandom().limit(15).exec(function (err, links) {
+				res.render('index.ejs', {
+					user: req.user,
+					links: links
+				})
+			});
 		}
 	});
 
@@ -21,7 +31,17 @@ module.exports = function (app, passport, dirname) {
 
 	app.post('/new/link', isLoggedIn, function (req, res) {
 		var data = req.body;
-		if (!(data.image.length > 0)) {
+
+		if (!(data.title.length > 0)) {
+			res.render('link.ejs', {
+				user: req.user,
+				message: {
+					header: "Oops!",
+					description: "Title field not filled.",
+					type: "error"
+				}
+			});
+		} else if (!(data.image.length > 0)) {
 			res.render('link.ejs', {
 				user: req.user,
 				message: {
@@ -40,31 +60,38 @@ module.exports = function (app, passport, dirname) {
 				}
 			});
 		} else {
-			var tags = [];
+			var user = req.user;
+			var link = new Link();
+			link.newLink(data.image, user, data.title);
+
 			if (data.tags.length > 0) {
 				var strs = data.tags.split(',');
 
 				for (var i = 0; i < strs.length; i++) {
-					tags.push(strs[i].trim());
+					link.addTag(strs[i].trim());
 				}
 			} else {
 				tags = undefined;
 			}
-
-			var link = new Link();
-			link.newLink(data.image, req.user, tags);
-			console.log(link);
-
-			res.render('link.ejs', {
-				user: req.user,
-				message: {
-					header: "Success!",
-					description: "New link created.",
-					type: "success",
-					image: data.image,
-					tags: tags
-				}
+			link.save(function () {
+				console.log("ID: " + link.id);
+				Link.findById(link.id, function (err, doc) {
+					console.log(doc);
+					res.render('link.ejs', {
+						user: req.user,
+						message: {
+							header: "Success!",
+							description: "New link created.",
+							type: "success"
+						},
+						link: doc
+					});
+				})
 			});
+
+			user.addLink(link);
+			user.save();
+
 		};
 	});
 }

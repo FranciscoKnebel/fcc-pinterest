@@ -43,9 +43,9 @@ a:focus, a:hover {
 
 #linksection {
   width: 100%;
-  min-height: 190px;
+  min-height: 270px;
   position: absolute;
-  top: -190px;
+  top: -270px;
   background-color: rgba(255,255,255,0.5);
 }
 
@@ -54,7 +54,7 @@ body {
 }
 
 body.active {
-  transform: translateY(190px);
+  transform: translateY(270px);
 }
 
 .ui.secondary.menu {

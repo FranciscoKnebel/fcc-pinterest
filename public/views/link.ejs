@@ -8,7 +8,7 @@
 	<body>
 		<% include ../snippets/navbar %>
 
-		<div class="ui text container" id="top">
+		<div class="ui text container">
 			<% if(typeof message != 'undefined') { %>
 				<div class="ui big icon <%= message.type %> message">
 					<% if(message.type == 'error') { %>
@@ -26,6 +26,10 @@
 					<div class="ui segment">
 						<form class="ui form" action="/new/link" method="post">
 							<div class="field">
+								<label>Title</label>
+								<input placeholder="Link title" type="text" name="title">
+							</div>
+							<div class="field">
 								<label>Image URL</label>
 								<input placeholder="Image URL" type="text" name="image">
 							</div>
@@ -37,8 +41,50 @@
 						</form>
 					</div>
 				<% } else if(message.type == 'success') { %>
-
+					<div class="ui centered cards" style="margin-top: 1em">
+						<div class="card">
+							<div class="content">
+								<div class="header">
+									<%= link.title %>
+								</div>
+							</div>
+							<div class="image">
+								<img src="<%= link.image %>">
+							</div>
+							<div class="content">
+								<div class="meta">
+									<a><%= link.owner.twitter.username %></a>
+								</div>
+								<div class="meta">
+									<% for (var i = 0; i < link.tags.length; i++) { %>
+										<a><%= link.tags[i] %></a>
+									<% } %>
+								</div>
+							</div>
+							<div class="extra content">
+								<span class="right floated">
+									<a><%= link.createdAt.toLocaleDateString() %></a>
+								</span>
+								<span>
+									<a>
+										<i class="heart icon"></i>
+									</a>
+									<%= link.likes.length %>
+									likes
+								</span>
+							</div>
+						</div>
+					</div>
+					<div style="display:table; width: 100%">
+						<div style="display:table-cell;vertical-align:middle;">
+							<div style="text-align:center;">
+								<a class="ui primary big button" href="/" style="margin-top: 1em">Home</a>
+							</div>
+						</div>
+					</div>
 				<% } %>
+			<% } else { %>
+				Undefined. You should not be here.
 			<% } %>
 		</div>
 

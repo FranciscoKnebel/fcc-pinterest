@@ -10,13 +10,26 @@ var userSchema = mongoose.Schema({
 		username: String,
 		image: String,
 		_id: false
-	}
+	},
+	links: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Link'
+		}
+	]
 }, {
 	timestamps: {
 		createdAt: 'createdAt',
 		updatedAt: 'updatedAt'
 	}
 });
+
+userSchema.methods.addLink = function (link) {
+	this.links.push(link);
+	this.markModified('links');
+
+	return this.links;
+}
 
 // generating a hash
 userSchema.methods.generateHash = function (password) {
