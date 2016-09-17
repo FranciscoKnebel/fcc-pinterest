@@ -4,7 +4,8 @@
   "description": "Pinterest-like application for FreeCodeCamp.",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "express": "^4.14.0",
     "express-session": "^1.14.1",
     "helmet": "^2.1.3",
+    "is-image-url": "^1.1.8",
     "jdenticon": "^1.3.2",
     "jquery": "^3.1.0",
     "mongoose": "^4.6.0",

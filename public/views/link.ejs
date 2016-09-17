@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>fcc-pinterest</title>
+
+		<% include ../snippets/head %>
+	</head>
+	<body>
+		<% include ../snippets/navbar %>
+
+		<div class="ui text container" id="top">
+			<% if(typeof message != 'undefined') { %>
+				<div class="ui big icon <%= message.type %> message">
+					<% if(message.type == 'error') { %>
+						<i class="warning sign icon"></i>
+					<% } else { %>
+						<i class="check circle outline icon"></i>
+					<% } %>
+					<i class="close icon"></i>
+					<div class="">
+						<div class="header"><%= message.header %></div>
+						<div class="description"><%= message.description %></div>
+					</div>
+				</div>
+				<% if(message.type == 'error') { %>
+					<div class="ui segment">
+						<form class="ui form" action="/new/link" method="post">
+							<div class="field">
+								<label>Image URL</label>
+								<input placeholder="Image URL" type="text" name="image">
+							</div>
+							<div class="field">
+								<label>Tags</label>
+								<input placeholder="Tags" type="text" name="tags">
+							</div>
+							<button class="ui large primary button" type="submit">Send</button>
+						</form>
+					</div>
+				<% } else if(message.type == 'success') { %>
+
+				<% } %>
+			<% } %>
+		</div>
+
+		<% include ../snippets/footer %>
+	</body>
+</html>

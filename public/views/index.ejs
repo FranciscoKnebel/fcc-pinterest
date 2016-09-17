@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
 		<title>fcc-pinterest</title>
 
 		<% include ../snippets/head %>
@@ -10,16 +9,66 @@
 		<% include ../snippets/navbar %>
 
 		<div class="ui text container" id="top">
+			<div class="ui center aligned segment">
+				<h1>fcc-pinterest</h1>
+				<h4>Log in using Twitter</h4>
+				<a class="ui large twitter button" href="/auth/twitter">
+					<i class="big twitter icon"></i>
+					Login
+				</a>
+			</div>
+		</div>
+		<div class="ui container">
+			<div class="ui center aligned segment"></div>
+		</div>
+
+		<div class="ui text container">
 			<div class="ui segments">
-				<div class="ui center aligned segment">
-					<h1>fcc-pinterest</h1>
-				</div>
-				<div class="ui center aligned segment">
-					<h3>Log in using Twitter</h3>
-					<a class="ui large twitter button" href="/auth/twitter">
-						<i class="big twitter icon"></i>
-						Login
-					</a>
+				<div class="ui segment">
+					<div class="ui relaxed list">
+						<div class="item">
+							<i class="chevron right icon"></i>
+							<div class="content">
+								<div class="header">User Story:</div>
+								<div class="description">As an unauthenticated user, I can login with Twitter.</div>
+							</div>
+						</div>
+						<div class="item">
+							<i class="chevron right icon"></i>
+							<div class="content">
+								<div class="header">User Story:</div>
+								<div class="description">As an authenticated user, I can link to images.</div>
+							</div>
+						</div>
+						<div class="item">
+							<i class="chevron right icon"></i>
+							<div class="content">
+								<div class="header">User Story:</div>
+								<div class="description">As an authenticated user, I can delete images that I've linked to.</div>
+							</div>
+						</div>
+						<div class="item">
+							<i class="chevron right icon"></i>
+							<div class="content">
+								<div class="header">User Story:</div>
+								<div class="description">As an authenticated user, I can see a Pinterest-style wall of all the images I've linked to.</div>
+							</div>
+						</div>
+						<div class="item">
+							<i class="chevron right icon"></i>
+							<div class="content">
+								<div class="header">User Story:</div>
+								<div class="description">As an unauthenticated user, I can browse other users' walls of images.</div>
+							</div>
+						</div>
+						<div class="item">
+							<i class="chevron right icon"></i>
+							<div class="content">
+								<div class="header">User Story:</div>
+								<div class="description">As an authenticated user, if I upload an image that is broken, it will be replaced by a placeholder image.</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

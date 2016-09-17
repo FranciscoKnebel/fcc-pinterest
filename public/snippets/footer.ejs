@@ -27,3 +27,10 @@
 
 <script src="/js/jquery.js" charset="utf-8"></script>
 <script src="/js/semantic.js" charset="utf-8"></script>
+
+<script>
+	<% if(typeof user !== "undefined") { %>
+		$('#addlink').on('click', function() { $('#linksection').toggleClass('active'); $('#addlink').toggleClass('active'); $('body').toggleClass('active'); });
+	<% } %>
+	$('.message .close').on('click', function() { $(this).closest('.message').transition('fade'); });
+</script>
