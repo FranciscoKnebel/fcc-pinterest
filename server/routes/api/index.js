@@ -1,5 +1,6 @@
 var Link = require('../../models/link');
 const isimageurl = require('is-image-url');
+const mongoose = require('mongoose');
 
 module.exports = function (app, dirname) {
 	app.post('/new/link', isLoggedIn, function (req, res) {
@@ -63,6 +64,32 @@ module.exports = function (app, dirname) {
 
 			user.save();
 		};
+	});
+
+	app.delete('/link/:id', function (req, res) {
+		var id = req.params.id;
+		if (mongoose.Types.ObjectId.isValid(id)) {
+			//delete from user
+			var user = req.user;
+			if (user.removeLink(id)) {
+				user.save();
+
+				//delete from link collection
+				Link.remove({
+					_id: id
+				}, function (err) {
+					if (err) {
+						res.send(err)
+					}
+
+					res.send(true);
+				})
+			} else {
+				res.status(404).send("Link not found on user account.");
+			}
+		} else {
+			res.status(400).send("Link ID has invalid format.");
+		}
 	});
 }
 

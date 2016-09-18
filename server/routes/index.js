@@ -4,6 +4,7 @@ var User = require('../models/user');
 const shortid = require('shortid');
 const formatDate = require('format-date');
 const dateDifference = require('date-difference');
+const mongoose = require('mongoose');
 
 module.exports = function (app, passport, dirname) {
 	require('./static')(app, dirname);
@@ -34,50 +35,40 @@ module.exports = function (app, passport, dirname) {
 		res.redirect('/');
 	});
 
-	app.get('/profile/:id', isLoggedIn, function (req, res) {
+	app.get('/profile/:id', function (req, res) {
 		var id = req.params.id;
+		User.findOne({
+			'twitter.username': id
+		}, function (err, profile) {
+			if (err) {
+				res.render('profile.invalid.ejs', {
+					user: req.user,
+					message: {
+						header: "Ooops!",
+						description: err.message
+					}
+				});
+			}
 
-		if (shortid.isValid(id)) {
-			User.findOne({
-				profile: id
-			}, function (err, profile) {
-				if (err) {
-					res.render('profile.invalid.ejs', {
-						user: req.user,
-						message: {
-							header: "Ooops!",
-							description: err.message
-						}
-					});
-				}
-
-				if (!profile) {
-					res.render('profile.invalid.ejs', {
-						user: req.user,
-						message: {
-							header: "Ooops!",
-							description: "User " + id + " is invalid."
-						}
-					});
-				} else {
-					res.render('profile.ejs', {
-						user: req.user,
-						profile: profile,
-						since: formatDate('{utc-day} of {utc-month-name}, {utc-year}', profile.createdAt),
-						lastseen: dateDifference(profile.updatedAt, new Date(), {compact: true})
-					});
-				}
-			});
-		} else {
-			res.render('profile.invalid.ejs', {
-				user: req.user,
-				message: {
-					header: "Ooops!",
-					description: "User " + id + " is invalid."
-				}
-			});
-		}
+			if (!profile) {
+				res.render('profile.invalid.ejs', {
+					user: req.user,
+					message: {
+						header: "Ooops!",
+						description: "User " + id + " is invalid."
+					}
+				});
+			} else {
+				res.render('profile.ejs', {
+					user: req.user,
+					profile: profile,
+					since: formatDate('{utc-day} of {utc-month-name}, {utc-year}', profile.createdAt),
+					lastseen: dateDifference(profile.updatedAt, new Date(), {compact: true})
+				});
+			}
+		});
 	});
+
 }
 
 function isLoggedIn(req, res, next) {

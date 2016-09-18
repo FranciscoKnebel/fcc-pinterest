@@ -49,7 +49,7 @@
 									<%= link.owner.twitter.username %>
 								</a>
 								<div class="right floated meta">
-									<a id="<%= link.id %>"></a>
+									<a href="/profile/<%= link.owner.twitter.username %>" id="<%= link.id %>-date"></a>
 								</div>
 							</div>
 							<a class="image" href="<%= link.image %>" target="_blank">
@@ -57,7 +57,7 @@
 							</a>
 							<div class="content">
 								<div class="header">
-									<a><%= link.title %></a>
+									<a href="/profile/<%= link.owner.twitter.username %>"><%= link.title %></a>
 								</div>
 								<div class="meta">
 									<% for (var j = 0; j < link.tags.length; j++) { %>
@@ -67,7 +67,7 @@
 							</div>
 							<div class="extra content">
 								<span class="right floated meta">
-									<a><%= link.createdAt.toLocaleDateString() %></a>
+									<a href="/profile/<%= link.owner.twitter.username %>"><%= link.createdAt.toLocaleDateString() %></a>
 								</span>
 								<span>
 									<a>
@@ -96,7 +96,7 @@
 		<% include ../snippets/footer %>
 		<script type="text/javascript" src="/js/datediff.js"></script>
 		<script type="text/javascript">
-			$('#<%= link.id %>').html(dateDifference(new Date('<%= link.updatedAt %>'), new Date(), {compact: true}));
+			$('#<%= link.id %>').html(dateDifference(new Date('<%= link.updatedAt %>-dates'), new Date(), {compact: true}));
 		</script>
 	</body>
 </html>
