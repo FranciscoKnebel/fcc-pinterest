@@ -1,5 +1,7 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt-nodejs');
+const autopopulate = require('mongoose-autopopulate');
+const shortid = require('shortid');
 
 // define the schema for our user model
 var userSchema = mongoose.Schema({
@@ -14,15 +16,22 @@ var userSchema = mongoose.Schema({
 	links: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Link'
+			ref: 'Link',
+			autopopulate: true
 		}
-	]
+	],
+	profile: {
+		type: String,
+		'default': shortid.generate
+	}
 }, {
 	timestamps: {
 		createdAt: 'createdAt',
 		updatedAt: 'updatedAt'
 	}
 });
+
+userSchema.plugin(autopopulate);
 
 userSchema.methods.addLink = function (link) {
 	this.links.push(link);

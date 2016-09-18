@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>fcc-pinterest</title>
+
+		<% include ../snippets/head %>
+	</head>
+	<body>
+		<% include ../snippets/navbar %>
+
+		<div class="ui center aligned raised segments text container">
+			<div class="ui segment">
+				<h3><%= profile.twitter.displayName %></h3>
+				<a href="/profile/<%= profile.profile %>" target="_blank">
+					/profile/<%= profile.profile %>
+				</a>
+			</div>
+
+			<div class="ui segment">
+				<a href="https://twitter.com/<%= profile.twitter.username %>" target="_blank">
+					<img src="<%= profile.twitter.image %>" class="ui centered bordered small image"/>
+				</a>
+				<p>
+					<br>
+					Last activity:
+					<strong><%= lastseen %></strong>
+					<br>
+					Member since
+					<strong><%= since %></strong>
+				</p>
+			</div>
+		</div>
+
+		<div class="ui centered cards" style="margin-top: 1em">
+			<% for (var i = profile.links.length - 1; i >= 0; i--) { %>
+				<div class="card">
+					<div class="content">
+						<a href="https://twitter.com/<%= profile.links[i].owner.twitter.username %>" target="_blank">
+							<img class="ui avatar image" src="<%= profile.links[i].owner.twitter.image %>">
+							<%= profile.links[i].owner.twitter.username %>
+						</a>
+						<div class="right floated meta">
+							<a id="<%= profile.links[i].id %>"></a>
+						</div>
+					</div>
+					<a class="image" href="<%= profile.links[i].image %>" target="_blank">
+						<img src="<%= profile.links[i].image %>"/>
+					</a>
+					<div class="content">
+						<div class="header">
+							<a><%= profile.links[i].title %></a>
+						</div>
+						<div class="meta">
+							<% for (var j = 0; j < profile.links[i].tags.length; j++) { %>
+								<a><%= profile.links[i].tags[j] %></a>
+							<% } %>
+						</div>
+					</div>
+					<div class="extra content">
+						<span class="right floated meta">
+							<a><%= profile.links[i].createdAt.toLocaleDateString() %></a>
+						</span>
+						<span>
+							<a>
+								<i class="heart icon"></i>
+							</a>
+							<%= profile.links[i].likes.length %>
+							likes
+						</span>
+					</div>
+				</div>
+			<% } %>
+		</div>
+
+		<% include ../snippets/footer %>
+		<script type="text/javascript" src="/js/datediff.js"></script>
+		<script type="text/javascript">
+			<% for (var i = 0; i < profile.links.length; i++) { %>
+				$('#<%= profile.links[i].id %>').html(dateDifference(new Date('<%= profile.links[i].updatedAt %>'), new Date(), {compact: true}));
+			<% } %>
+		</script>
+	</body>
+</html>

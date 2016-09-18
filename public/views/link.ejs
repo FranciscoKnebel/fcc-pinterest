@@ -44,25 +44,29 @@
 					<div class="ui centered cards" style="margin-top: 1em">
 						<div class="card">
 							<div class="content">
-								<div class="header">
-									<%= link.title %>
+								<a href="https://twitter.com/<%= link.owner.twitter.username %>" target="_blank">
+									<img class="ui avatar image" src="<%= link.owner.twitter.image %>">
+									<%= link.owner.twitter.username %>
+								</a>
+								<div class="right floated meta">
+									<a id="<%= link.id %>"></a>
 								</div>
 							</div>
-							<div class="image">
-								<img src="<%= link.image %>">
-							</div>
+							<a class="image" href="<%= link.image %>" target="_blank">
+								<img src="<%= link.image %>"/>
+							</a>
 							<div class="content">
-								<div class="meta">
-									<a><%= link.owner.twitter.username %></a>
+								<div class="header">
+									<a><%= link.title %></a>
 								</div>
 								<div class="meta">
-									<% for (var i = 0; i < link.tags.length; i++) { %>
-										<a><%= link.tags[i] %></a>
+									<% for (var j = 0; j < link.tags.length; j++) { %>
+										<a><%= link.tags[j] %></a>
 									<% } %>
 								</div>
 							</div>
 							<div class="extra content">
-								<span class="right floated">
+								<span class="right floated meta">
 									<a><%= link.createdAt.toLocaleDateString() %></a>
 								</span>
 								<span>
@@ -75,6 +79,7 @@
 							</div>
 						</div>
 					</div>
+
 					<div style="display:table; width: 100%">
 						<div style="display:table-cell;vertical-align:middle;">
 							<div style="text-align:center;">
@@ -89,5 +94,9 @@
 		</div>
 
 		<% include ../snippets/footer %>
+		<script type="text/javascript" src="/js/datediff.js"></script>
+		<script type="text/javascript">
+			$('#<%= link.id %>').html(dateDifference(new Date('<%= link.updatedAt %>'), new Date(), {compact: true}));
+		</script>
 	</body>
 </html>
