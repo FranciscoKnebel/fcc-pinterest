@@ -71,44 +71,9 @@
 		</div>
 
 		<div class="ui centered cards" style="margin-top: 1em">
-			<% for (var i = 0; i < links.length; i++) { %>
-				<div class="card" id="<%= links[i].id %>">
-					<div class="content">
-						<a href="https://twitter.com/<%= links[i].owner.twitter.username %>" target="_blank">
-							<img class="ui avatar image" src="<%= links[i].owner.twitter.image %>">
-							<%= links[i].owner.twitter.username %>
-						</a>
-						<div class="right floated meta">
-							<a href="/profile/<%= links[i].owner.twitter.username %>" id="<%= links[i].id %>-date"></a>
-						</div>
-					</div>
-					<a class="image" href="<%= links[i].image %>" target="_blank">
-						<img src="<%= links[i].image %>"/>
-					</a>
-					<div class="content">
-						<div class="header">
-							<a href="/profile/<%= links[i].owner.twitter.username %>"><%= links[i].title %></a>
-						</div>
-						<div class="meta">
-							<% for (var j = 0; j < links[i].tags.length; j++) { %>
-								<a><%= links[i].tags[j] %></a>
-							<% } %>
-						</div>
-					</div>
-					<div class="extra content">
-						<span class="right floated meta">
-							<a href="/profile/<%= links[i].owner.twitter.username %>"><%= links[i].createdAt.toLocaleDateString() %></a>
-						</span>
-						<span>
-							<a>
-								<i class="heart icon"></i>
-							</a>
-							<%= links[i].likes.length %>
-							likes
-						</span>
-					</div>
-				</div>
-			<% } %>
+			<% links.forEach(function(link){ %>
+				<%- include('../snippets/cardLink', {card: link, isprofilepage: false}) %>
+			<% }); %>
 		</div>
 
 		<% include ../snippets/footer %>

@@ -42,42 +42,7 @@
 					</div>
 				<% } else if(message.type === 'success') { %>
 					<div class="ui centered cards" style="margin-top: 1em">
-						<div class="card" id="<%= link.id %>">
-							<div class="content">
-								<a href="https://twitter.com/<%= link.owner.twitter.username %>" target="_blank">
-									<img class="ui avatar image" src="<%= link.owner.twitter.image %>">
-									<%= link.owner.twitter.username %>
-								</a>
-								<div class="right floated meta">
-									<a href="/profile/<%= link.owner.twitter.username %>" id="<%= link.id %>-date"></a>
-								</div>
-							</div>
-							<a class="image" href="<%= link.image %>" target="_blank">
-								<img src="<%= link.image %>"/>
-							</a>
-							<div class="content">
-								<div class="header">
-									<a href="/profile/<%= link.owner.twitter.username %>"><%= link.title %></a>
-								</div>
-								<div class="meta">
-									<% for (var j = 0; j < link.tags.length; j++) { %>
-										<a><%= link.tags[j] %></a>
-									<% } %>
-								</div>
-							</div>
-							<div class="extra content">
-								<span class="right floated meta">
-									<a href="/profile/<%= link.owner.twitter.username %>"><%= link.createdAt.toLocaleDateString() %></a>
-								</span>
-								<span>
-									<a>
-										<i class="heart icon"></i>
-									</a>
-									<%= link.likes.length %>
-									likes
-								</span>
-							</div>
-						</div>
+						<%- include('../snippets/cardLink', {card: link, isprofilepage: false}) %>
 					</div>
 
 					<div style="display:table; width: 100%">

@@ -16,9 +16,14 @@
 			</div>
 
 			<div class="ui segment">
-				<a href="https://twitter.com/<%= profile.twitter.username %>" target="_blank">
-					<img src="<%= profile.twitter.image %>" class="ui centered bordered small image"/>
+				<a class="ui centered small image" href="https://twitter.com/<%= profile.twitter.username %>" target="_blank">
+					<img src="<%= profile.twitter.image %>"/>
+					<button class="ui bottom attached fluid twitter button">
+						<i class="twitter icon"></i>
+						Twitter
+					</button>
 				</a>
+
 				<p>
 					<br>
 					Last activity:
@@ -32,51 +37,8 @@
 
 		<div class="ui centered cards" style="margin-top: 1em">
 			<% for (var i = profile.links.length - 1; i >= 0; i--) { %>
-				<div class="card" id="<%= profile.links[i].id %>">
-					<div class="content">
-						<a href="https://twitter.com/<%= profile.links[i].owner.twitter.username %>" target="_blank">
-							<img class="ui avatar image" src="<%= profile.links[i].owner.twitter.image %>">
-							<%= profile.links[i].owner.twitter.username %>
-						</a>
-						<div class="right floated meta">
-							<a href="/profile/<%= profile.links[i].owner.twitter.username %>" id="<%= profile.links[i].id %>-date"></a>
-						</div>
-					</div>
-					<a class="image" href="<%= profile.links[i].image %>" target="_blank">
-						<img src="<%= profile.links[i].image %>"/>
-					</a>
-					<div class="content">
-						<div class="header">
-							<a href="/profile/<%= profile.links[i].owner.twitter.username %>"><%= profile.links[i].title %></a>
-						</div>
-						<div class="meta">
-							<% for (var j = 0; j < profile.links[i].tags.length; j++) { %>
-								<a><%= profile.links[i].tags[j] %></a>
-							<% } %>
-						</div>
-					</div>
-					<div class="extra content">
-						<span class="right floated meta">
-							<a href="/profile/<%= profile.links[i].owner.twitter.username %>"><%= profile.links[i].createdAt.toLocaleDateString() %></a>
-						</span>
-						<span>
-							<a>
-								<i class="heart icon"></i>
-							</a>
-							<%= profile.links[i].likes.length %>
-							likes
-						</span>
-					</div>
-					<% if(typeof user !== "undefined") { %>
-						<% if(profile.links[i].owner.id === user.id) { %>
-							<div class="ui bottom attached red button" id="<%= profile.links[i].id %>-delete">
-								<i class="delete icon"></i>
-								Delete
-							</div>
-						<% } %>
-					<% } %>
-				</div>
-			<% } %>
+				<%- include('../snippets/cardLink', {card: profile.links[i], isprofilepage: true}) %>
+			<% }; %>
 		</div>
 
 		<% include ../snippets/footer %>

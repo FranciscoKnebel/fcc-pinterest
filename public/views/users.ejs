@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>fcc-pinterest</title>
+
+		<% include ../snippets/head %>
+	</head>
+	<body>
+		<% include ../snippets/navbar %>
+
+		<div class="ui text container">
+			<% if(typeof message != 'undefined') { %>
+				<div class="ui message">
+					<div class="header"><%= message.header %></div>
+					<div class="description"><%= message.description %></div>
+				</div>
+			<% } %>
+		</div>
+
+		<div class="ui center aligned segment container" style="margin-top: 1em">
+			<div class="ui relaxed horizontal list">
+				<% profiles.forEach(profile => { %>
+					<%- include('../snippets/userlistitem', {profile: profile}) %>
+				<% }); %>
+			</div>
+		</div>
+
+		<% include ../snippets/footer %>
+	</body>
+</html>

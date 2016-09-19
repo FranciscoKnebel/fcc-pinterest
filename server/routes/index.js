@@ -69,6 +69,34 @@ module.exports = function (app, passport, dirname) {
 		});
 	});
 
+	app.get('/profiles', isLoggedIn, function (req, res) {
+		User.find({}, function (err, users) {
+			if (err) {
+				res.render('profile.invalid.ejs', {
+					user: req.user,
+					message: {
+						header: "Ooops!",
+						description: err.message
+					}
+				});
+			}
+
+			if (!users) {
+				res.render('profile.invalid.ejs', {
+					user: req.user,
+					message: {
+						header: "Ooops!",
+						description: "No users found."
+					}
+				});
+			} else {
+				res.render('users.ejs', {
+					user: req.user,
+					profiles: users
+				});
+			}
+		});
+	});
 }
 
 function isLoggedIn(req, res, next) {

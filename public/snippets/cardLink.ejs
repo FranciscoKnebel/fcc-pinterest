@@ -1,0 +1,42 @@
+<div class="card" id="<%= card.id %>">
+	<div class="content">
+		<a href="/profile/<%= card.owner.twitter.username %>" target="_blank">
+			<img class="ui avatar image" src="<%= card.owner.twitter.image %>">
+			<%= card.owner.twitter.username %>
+		</a>
+		<div class="right floated meta">
+			<a href="/profile/<%= card.owner.twitter.username %>" id="<%= card.id %>-date"></a>
+		</div>
+	</div>
+	<a class="image" href="<%= card.image %>" target="_blank">
+		<img src="<%= card.image %>"/>
+	</a>
+	<div class="content">
+		<div class="header">
+			<a href="/profile/<%= card.owner.twitter.username %>"><%= card.title %></a>
+		</div>
+		<div class="meta">
+			<% for (var j = 0; j < card.tags.length; j++) { %>
+				<a><%= card.tags[j] %></a>
+			<% } %>
+		</div>
+	</div>
+	<div class="extra content">
+		<span class="right floated meta">
+			<a href="/profile/<%= card.owner.twitter.username %>"><%= card.createdAt.toLocaleDateString() %></a>
+		</span>
+		<span>
+			<i class="like icon"></i>
+			<%= card.likes.length %>
+			likes
+		</span>
+	</div>
+	<% if(isprofilepage) { %>
+		<% if(card.owner.id === user.id) { %>
+			<div class="ui bottom attached red button" id="<%= card.id %>-delete">
+				<i class="delete icon"></i>
+				Delete
+			</div>
+		<% } %>
+	<% } %>
+</div>
