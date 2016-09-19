@@ -32,11 +32,13 @@
 		</span>
 	</div>
 	<% if(isprofilepage) { %>
-		<% if(card.owner.id === user.id) { %>
-			<div class="ui bottom attached red button" id="<%= card.id %>-delete">
-				<i class="delete icon"></i>
-				Delete
-			</div>
+		<% if(typeof user !== "undefined") { %>
+			<% if(card.owner.id === user.id) { %>
+				<div class="ui bottom attached red button" id="<%= card.id %>-delete">
+					<i class="delete icon"></i>
+					Delete
+				</div>
+			<% } %>
 		<% } %>
 	<% } %>
 </div>

@@ -32,5 +32,5 @@
 	<% if(typeof user !== "undefined") { %>
 		$('#addlink').on('click', function() { $('#linksection').toggleClass('active'); $('#addlink').toggleClass('active'); $('body').toggleClass('active');});
 	<% } %>
-	$('.message .close').on('click', function() { $(this).closest('.message').transition('fade'); });
+	$('.message .close').on('click', function() { $(this).closest('.message').transition('fade'); }); $('img').one('error', function() { this.src = '/img/not-found.png'; } );
 </script>
