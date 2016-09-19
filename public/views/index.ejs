@@ -72,7 +72,7 @@
 
 		<div class="ui centered cards" style="margin-top: 1em">
 			<% for (var i = 0; i < links.length; i++) { %>
-				<div class="card">
+				<div class="card" id="<%= links[i].id %>">
 					<div class="content">
 						<a href="https://twitter.com/<%= links[i].owner.twitter.username %>" target="_blank">
 							<img class="ui avatar image" src="<%= links[i].owner.twitter.image %>">
@@ -115,7 +115,7 @@
 		<script type="text/javascript" src="/js/datediff.js"></script>
 		<script type="text/javascript">
 			<% for (var i = 0; i < links.length; i++) { %>
-				$('#<%= links[i].id %>').html(dateDifference(new Date('<%= links[i].updatedAt %>-date'), new Date(), {compact: true}));
+				$('#<%= links[i].id %>-date').html(dateDifference(new Date('<%= links[i].updatedAt %>'), new Date(), {compact: true}));
 			<% } %>
 		</script>
 	</body>

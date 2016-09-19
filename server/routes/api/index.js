@@ -3,7 +3,7 @@ const isimageurl = require('is-image-url');
 const mongoose = require('mongoose');
 
 module.exports = function (app, dirname) {
-	app.post('/new/link', isLoggedIn, function (req, res) {
+	app.post('/link/new', isLoggedIn, function (req, res) {
 		var data = req.body;
 
 		if (!(data.title.length > 0)) {

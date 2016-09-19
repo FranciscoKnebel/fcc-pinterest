@@ -11,7 +11,7 @@
 		<div class="ui text container">
 			<% if(typeof message != 'undefined') { %>
 				<div class="ui big icon <%= message.type %> message">
-					<% if(message.type == 'error') { %>
+					<% if(message.type === 'error') { %>
 						<i class="warning sign icon"></i>
 					<% } else { %>
 						<i class="check circle outline icon"></i>
@@ -22,9 +22,9 @@
 						<div class="description"><%= message.description %></div>
 					</div>
 				</div>
-				<% if(message.type == 'error') { %>
+				<% if(message.type === 'error') { %>
 					<div class="ui segment">
-						<form class="ui form" action="/new/link" method="post">
+						<form class="ui form" action="/link/new" method="post">
 							<div class="field">
 								<label>Title</label>
 								<input placeholder="Link title" type="text" name="title">
@@ -40,9 +40,9 @@
 							<button class="ui large primary button" type="submit">Send</button>
 						</form>
 					</div>
-				<% } else if(message.type == 'success') { %>
+				<% } else if(message.type === 'success') { %>
 					<div class="ui centered cards" style="margin-top: 1em">
-						<div class="card">
+						<div class="card" id="<%= link.id %>">
 							<div class="content">
 								<a href="https://twitter.com/<%= link.owner.twitter.username %>" target="_blank">
 									<img class="ui avatar image" src="<%= link.owner.twitter.image %>">
@@ -94,9 +94,11 @@
 		</div>
 
 		<% include ../snippets/footer %>
-		<script type="text/javascript" src="/js/datediff.js"></script>
-		<script type="text/javascript">
-			$('#<%= link.id %>').html(dateDifference(new Date('<%= link.updatedAt %>-dates'), new Date(), {compact: true}));
-		</script>
+		<% if(message.type === "success") { %>
+			<script type="text/javascript" src="/js/datediff.js"></script>
+			<script type="text/javascript">
+				$('#<%= link.id %>-date').html(dateDifference(new Date('<%= link.updatedAt %>'), new Date(), {compact: true}));
+			</script>
+		<% } %>
 	</body>
 </html>

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 const autopopulate = require('mongoose-autopopulate');
 const shortid = require('shortid');
+var random = require('mongoose-random');
 
 // define the schema for our user model
 var userSchema = mongoose.Schema({
@@ -34,6 +35,7 @@ var userSchema = mongoose.Schema({
 });
 
 userSchema.plugin(autopopulate);
+userSchema.plugin(random, {path: 'r'});
 
 userSchema.methods.addLink = function (link) {
 	this.links.push(link);

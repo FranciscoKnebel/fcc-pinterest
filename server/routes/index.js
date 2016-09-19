@@ -13,14 +13,14 @@ module.exports = function (app, passport, dirname) {
 
 	app.get('/', function (req, res) {
 		if (req.isAuthenticated()) {
-			Link.findRandom().limit(16).exec(function (err, links) {
+			Link.findRandom().limit(18).exec(function (err, links) {
 				res.render('index.authenticated.ejs', {
 					user: req.user,
 					links: links
 				})
 			});
 		} else {
-			Link.findRandom().limit(16).exec(function (err, links) {
+			Link.findRandom().limit(18).exec(function (err, links) {
 				res.render('index.ejs', {
 					user: req.user,
 					links: links
